@@ -97,6 +97,7 @@ const Chats = ({ search }: { search: string }) => {
                   className="font-normal overflow-hidden text-ellipsis line-clamp-1"
                   title={chat.last_message?.message}
                 >
+                  {chat.last_message?.author === currenrUser?.uid && "You: "}
                   {chat.last_message?.message || (
                     <span className="text-blue-500">New created chat</span>
                   )}

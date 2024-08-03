@@ -30,7 +30,7 @@ const Chat = () => {
 
       updateChats(messageData);
 
-      setMessageList((prev) => [...prev, messageData]);
+      // setMessageList((prev) => [...prev, messageData]);
       setInput("");
     }
   };
