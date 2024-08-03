@@ -26,15 +26,12 @@ const Main = () => {
 
   useEffect(() => {
     const handleNotification = (data: IMessage) => {
-      console.log(data);
-
       if (
         currentChat?._id !== data.chatID &&
         currenrUser?.uid !== data.author
       ) {
         toast?.open(`${data.author}: ${data.message}`);
       }
-
       updateChats(data);
     };
 
@@ -50,7 +47,7 @@ const Main = () => {
       socket && socket.off("receive_notification", handleNotification);
       socket && socket.off("connect", handleConnect);
     };
-  }, [socket, currentChat]);
+  }, [socket, currentChat, updateChats]);
 
   return (
     <div className="flex">
