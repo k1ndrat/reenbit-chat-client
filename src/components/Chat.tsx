@@ -22,7 +22,8 @@ const Chat = () => {
         author: currenrUser?.uid || "",
         message: input,
         chatID: currentChat._id,
-        bot: currentChat.bot_name + " " + currentChat.bot_surname,
+        bot_name: currentChat.bot_name,
+        bot_surname: currentChat.bot_surname,
         createdAt: new Date(Date.now()).toISOString(),
       };
 

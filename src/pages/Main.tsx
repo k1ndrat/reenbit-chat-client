@@ -26,10 +26,16 @@ const Main = () => {
 
   useEffect(() => {
     const handleNotification = (data: IMessage) => {
-      if (currentChat._id !== data.chatID) {
+      console.log(data);
+
+      if (
+        currentChat?._id !== data.chatID &&
+        currenrUser?.uid !== data.author
+      ) {
         toast?.open(`${data.author}: ${data.message}`);
-        updateChats(data);
       }
+
+      updateChats(data);
     };
 
     const handleConnect = () => {
