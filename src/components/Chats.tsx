@@ -51,6 +51,15 @@ const Chats = ({ search }: { search: string }) => {
     );
   }, [search, chats]);
 
+  function formatDate(isoString: string) {
+    const date = new Date(isoString);
+    return date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
+  }
+
   return (
     <div className="overflow-y-auto py-4">
       <h3 className="p-4 text-xl opacity-50">Chats</h3>
@@ -78,9 +87,20 @@ const Chats = ({ search }: { search: string }) => {
                   <p>
                     {chat.bot_name} {chat.bot_surname}
                   </p>
-                  <p className="font-normal text-xs">Aug 17, 2022</p>
+                  <p className="font-normal text-xs">
+                    {chat.last_message?.createdAt
+                      ? formatDate(chat.last_message?.createdAt)
+                      : formatDate(chat.createdAt)}
+                  </p>
                 </div>
-                <p className="font-normal">Lorem ipsum dolor sit amet.</p>
+                <p
+                  className="font-normal overflow-hidden text-ellipsis line-clamp-1"
+                  title={chat.last_message?.message}
+                >
+                  {chat.last_message?.message || (
+                    <span className="text-blue-500">New created chat</span>
+                  )}
+                </p>
               </div>
               <div className="flex flex-col gap-1 text-sm">
                 <Button

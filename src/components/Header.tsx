@@ -62,9 +62,6 @@ const Header = ({
             onFocus={() => {
               setShowCreateButton(true);
             }}
-            // onBlur={() => {
-            //   setShowCreateButton(false);
-            // }}
           />
         </div>
 
@@ -74,17 +71,12 @@ const Header = ({
             className="mt-4"
             onClick={() => {
               setIsOpen(true);
-              console.log("open");
             }}
           />
         )}
       </div>
 
-      <CreateChatDialog
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        // setChats={setChats}
-      />
+      <CreateChatDialog isOpen={isOpen} setIsOpen={setIsOpen} />
     </header>
   );
 };

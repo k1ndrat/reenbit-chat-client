@@ -12,7 +12,7 @@ export const getChats = async (userID: string) => {
   }
 };
 
-export const createChat = async (body: Omit<IChat, "_id">) => {
+export const createChat = async (body: Omit<IChat, "_id" | "createdAt">) => {
   try {
     return (await api.post("/chat", body)).data;
   } catch (error) {

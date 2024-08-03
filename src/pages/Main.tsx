@@ -9,7 +9,7 @@ import { io } from "socket.io-client";
 
 const Main = () => {
   const { currenrUser } = useAuth();
-  const { socket, currentChat, setSocket } = useAppContext();
+  const { socket, currentChat, setSocket, updateChats } = useAppContext();
 
   const toast = useToast();
 
@@ -28,6 +28,7 @@ const Main = () => {
     const handleNotification = (data: IMessage) => {
       if (currentChat._id !== data.chatID) {
         toast?.open(`${data.author}: ${data.message}`);
+        updateChats(data);
       }
     };
 

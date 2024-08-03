@@ -1,6 +1,6 @@
 export interface IMessage {
   author: string;
-  bot: string;
+  bot?: string;
   chatID: string;
   message: string;
   createdAt: string;
@@ -11,4 +11,6 @@ export interface IChat {
   userID: string;
   bot_name: string;
   bot_surname: string;
+  last_message?: IMessage;
+  createdAt: string;
 }

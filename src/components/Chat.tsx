@@ -6,13 +6,14 @@ import { getMessages } from "../api/chat";
 
 const Chat = () => {
   const { currenrUser } = useAuth();
-  const { socket, currentChat } = useAppContext();
+  const { socket, currentChat, updateChats } = useAppContext();
 
   const [input, setInput] = useState<string>("");
   const [messageList, setMessageList] = useState<IMessage[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const inputRef = useRef<HTMLInputElement>(null!);
+  const bottomRef = useRef<HTMLDivElement>(null!);
 
   const sendMessage = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -26,15 +27,13 @@ const Chat = () => {
       };
 
       socket.emit("message", messageData);
-      // socket.emit("subscribe_notification", currenrUser?.uid);
-      // socket.emit("join_chat", currentChat._id);
+
+      updateChats(messageData);
 
       setMessageList((prev) => [...prev, messageData]);
       setInput("");
     }
   };
-
-  const bottomRef = useRef<HTMLDivElement>(null!);
 
   const scrollBottom = () => {
     bottomRef.current &&
@@ -49,6 +48,7 @@ const Chat = () => {
     const handleReceive = (data: IMessage) => {
       if (currentChat._id == data.chatID) {
         setMessageList((prev) => [...prev, data]);
+        updateChats(data);
       }
     };
 
@@ -72,6 +72,7 @@ const Chat = () => {
 
     fetchMessages();
     inputRef.current.focus();
+    setInput("");
   }, [currentChat]);
 
   const getTimeFromISO = (dateString: string) => {
