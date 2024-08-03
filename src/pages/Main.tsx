@@ -31,8 +31,10 @@ const Main = () => {
         currenrUser?.uid !== data.author
       ) {
         toast?.open(`${data.author}: ${data.message}`);
+        updateChats({...data, isRead: false});
+      } else {
+        updateChats(data);
       }
-      updateChats(data);
     };
 
     const handleConnect = () => {

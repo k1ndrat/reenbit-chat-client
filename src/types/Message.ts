@@ -5,6 +5,7 @@ export interface IMessage {
   chatID: string;
   message: string;
   createdAt: string;
+  isRead?: boolean;
 }
 
 export interface IChat {

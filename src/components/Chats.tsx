@@ -21,6 +21,17 @@ const Chats = ({ search }: { search: string }) => {
 
   const clickChat = (chat: IChat) => {
     setCurrentChat(chat);
+
+    if (chat.last_message?.isRead === false) {
+      console.log("nice");
+
+      const readChats = chats.map((ch) =>
+        ch._id === chat._id
+          ? { ...ch, last_message: { ...ch.last_message, isRead: true } }
+          : ch
+      );
+      setChats(readChats as IChat[]);
+    }
   };
 
   useEffect(() => {
@@ -69,7 +80,7 @@ const Chats = ({ search }: { search: string }) => {
             <li
               className={`p-4 cursor-pointer transition-all flex items-center gap-3 border-b border-[#c0bdbd] ${
                 currentChat?._id === chat._id ? "bg-[#F5F5F5] font-bold" : ""
-              }`}
+              } ${chat.last_message?.isRead === false ? "bg-gray-400" : ""}`}
               key={index}
               onClick={() => {
                 clickChat(chat);
